@@ -17,6 +17,58 @@ def colorImage(color, width=20, height=12):
     return im
 
 
+class LayerThiefAddLayerController(ezui.WindowController):
+
+    def build(self, parent, callback):
+        self.callback = callback
+        
+        content = """
+        = TwoColumnForm
+        : Color:
+        * ColorWell      @layerColor
+        
+        : Name:
+        [_       _]      @layerName
+        
+        ====
+        ( Cancel )       @cancelButton
+        ( Add Layer )    @addlayerButton        
+        """
+        descriptionData = dict(
+            content=dict(
+                itemColumnWidth=150
+            ),
+            layerColor=dict(
+                height=20,
+                color=(1, 0, 1, 1)
+            ),
+            layerName=dict(
+                placeholder="Layer name"
+            )
+        )
+        self.w = ezui.EZSheet(
+            content=content,
+            descriptionData=descriptionData,
+            parent=parent,
+            size=(200, "auto"),
+            controller=self
+        )
+    
+    def started(self):
+        self.w.open()
+    
+    def cancelButtonCallback(self, sender):
+        self.w.close()
+        
+    def addlayerButtonCallback(self, sender):
+        layerName = self.w.getItem("layerName")
+        layerColor = self.w.getItem("layerColor")        
+        self.callback(layerName.get(), layerColor.get())
+        self.w.close()
+
+
+
+
 class LayerThiefController(ezui.WindowController):
 
     def build(self):
@@ -143,6 +195,17 @@ class LayerThiefController(ezui.WindowController):
         self.w.getItem("targetFont").set(0)
     
     def addTargetLayerCallback(self, sender):
-        print("add layer in target")
+        print("add layer in target")        
+        LayerThiefAddLayerController(self.w, self._addTargetLayer)
+    
+    def _addTargetLayer(self, layerName, layerColor):
+        targetFont = self.w.getItem("targetFont")
+        font = self.fontsMap[targetFont.getItem()]
+        print(f"add layer '{layerName}' color: {layerColor} in {font}")
+        targetLayer = self.w.getItem("targetLayer")
+        # select the newly added layer
+        targetLayer.set(2)
+
+        
         
 LayerThiefController()    
