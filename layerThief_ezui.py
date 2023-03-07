@@ -1,11 +1,3 @@
-# this needs a different branch of EZUI!!!
-
-
-
-
-
-
-
 import ezui
 import ezui
 import drawBot
