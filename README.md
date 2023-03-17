@@ -9,6 +9,7 @@ Examples and exercises as shown during the [RoboHackathon](https://robofont.com/
 
 Original:
 ![](assets/copyGlyphs.png)
+
 Ezui:
 ![](assets/copyGlyphs_ezui.png)
 
@@ -16,6 +17,7 @@ Ezui:
 
 Original:
 ![](assets/copySidebearings.png)
+
 Ezui:
 ![](assets/copySidebearing_ezui.png)
 
@@ -23,6 +25,7 @@ Ezui:
 
 Original:
 ![](assets/letterMeter.png)
+
 Ezui:
 ![](assets/letterMeter_ezui.png)
 
@@ -30,6 +33,7 @@ Ezui:
 
 Original:
 ![](assets/layerThief.png)
+
 Ezui:
 ![](assets/layerThief_ezui.png)
 
@@ -37,6 +41,7 @@ Ezui:
 
 Original:
 ![](assets/delorean.png)
+
 Ezui:
 ![](assets/delorean_ezui.png)
 
@@ -44,5 +49,6 @@ Ezui:
 
 Original:
 ![](assets/glyphBrowser.png)
+
 Ezui:
 ![](assets/glyphBrowser_ezui.png)
