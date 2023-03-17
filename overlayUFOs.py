@@ -6,28 +6,29 @@ class Controller(ezui.WindowController):
 
     def build(self):
         content = """
-        = HorizontalStack
-        * VerticalStack
-            > [X] Show
-            > [X] Fill
-            > * ColorWell                    @layerColor
-            > [ ] Stroke
-            > ---
-            > Alignment:
-            > (X) Left
-            > ( ) Center
-            > ( ) Right
-        * VerticalStack
-            > |---|                           @fontList    
-            > (+-)                            @fontListAddRemoveButton
-            > ---
-            > * HorizontalStack
-                >> Contexts:
-                >> [ ] Always View Current
-            > * HorizontalStack
-                >> [_ _]                       @leftContext
-                >> [_ _]                       @glyphContext
-                >> [_ _]                       @rightContext
+        = HorizontalStack                                                           # switch from the default vertical stack to a horizontal stack
+        * VerticalStack                                                             # add a vertical stack
+            > [X] Show                                                              # add check box (in vertical stack)
+            > [X] Fill                                                              # add check box (in vertical stack)
+            > * ColorWell                    @layerColor                            # add color well (in vertical stack)
+            > [ ] Stroke                                                            # add check box (in vertical stack)
+            > ---                                                                   # add line (in vertical stack)
+            > Alignment:                                                            # add label (in vertical stack)
+            > (X) Left                                                              # add radio button (in vertical stack)
+            > ( ) Center                                                            # add radio button (in vertical stack)
+            > ( ) Right                                                             # add radio button (in vertical stack)
+
+        * VerticalStack                                                             # add a vertical stack
+            > |---|                           @fontList                             # add table (in vertical stack)
+            > (+-)                            @fontListAddRemoveButton              # add +- segmented button (in vertical stack)
+            > ---                                                                   # add line (in vertical stack)
+            > * HorizontalStack                                                     # add a horizontal stack (in vertical stack)
+                >> Contexts:                                                        # add label (in horizontal stack)
+                >> [ ] Always View Current                                          # add checkbox (in horizontal stack)
+            > * HorizontalStack                                                     # add a horizontal stack (in vertical stack)
+                >> [_ _]                       @leftContext                         # add text field (in horizontal stack)
+                >> [_ _]                       @glyphContext                        # add text field (in horizontal stack)
+                >> [_ _]                       @rightContext                        # add text field (in horizontal stack)
         """
         descriptionData = dict(
             layerColor=dict(
@@ -37,6 +38,7 @@ class Controller(ezui.WindowController):
             fontList=dict(
                 width="fill",
                 columnDescriptions=[
+                    # add column with a checkbox as cell type
                     dict(title="􀋭", identifier="show", cellDescription=dict(cellType="Checkbox"), width=20, editable=True),
                     dict(title="Path", identifier="path"),
                 ]
@@ -51,7 +53,7 @@ class Controller(ezui.WindowController):
             rightContext=dict(
                 width=100,
                 placeholder="Right Context"
-            ),            
+            ),
         )
         self.w = ezui.EZPanel(
             title="Overlay UFOs",
@@ -60,17 +62,17 @@ class Controller(ezui.WindowController):
             size=(500, 400),
             controller=self
         )
-    
+
     def started(self):
         self.w.open()
-    
+
     def fontListAddRemoveButtonAddCallback(self, sender):
-        
+
         def showGetFileResultCallback(result):
             print(result)
             if result is None:
                 return
-            
+
             table = self.w.getItem("fontList")
             items = table.get()
 
@@ -81,16 +83,16 @@ class Controller(ezui.WindowController):
                     fullPath=path
                 )
                 items.append(item)
-                
+
             table.set(items)
-        
+
         self.showGetFile(
             messageText="Select a ufo.",
             fileTypes=["ufo"],
-            allowsMultipleSelection=True,            
+            allowsMultipleSelection=True,
             callback=showGetFileResultCallback
         )
-        
+
 
     def fontListAddRemoveButtonRemoveCallback(self, sender):
         table = self.w.getItem("fontList")
@@ -101,4 +103,4 @@ class Controller(ezui.WindowController):
         table.set(items)
 
 
-Controller()    
+Controller()

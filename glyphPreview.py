@@ -4,13 +4,13 @@ class Controller(ezui.WindowController):
 
     def build(self):
         content = """
-        * RoboFontGlyphPreview  @glyphPreview
+        * RoboFontGlyphPreview  @glyphPreview          # add custom RF view
         """
         descriptionData = dict(
             glyphPreview=dict(
-                height="fill",
-                glyph=CurrentGlyph(),
-                selection=[(100, 100)]
+                height="fill",              # set height to fill the container
+                glyph=CurrentGlyph(),       # set glyph
+                selection=[(100, 100)]      # set point to hightlight
             )
         )
         self.w = ezui.EZWindow(
@@ -20,11 +20,9 @@ class Controller(ezui.WindowController):
             size=(400, 400),
             controller=self
         )
-        
-        #self.w.getItem("glyphPreview").setGlyph(CurrentGlyph())
-    
+
     def started(self):
         self.w.open()
 
 
-Controller()    
+Controller()
